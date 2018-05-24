@@ -9,23 +9,14 @@ def get_charges(mol):
     return [atom.partialcharge for atom in mol]
 
 
-def write_xyz(coords, atomtypes, filename):
-
-    output = "%i\n\n" % len(atomtypes)
-    
-    for i, atom in atomtypes:
-        output += "%s %f %f %f\n" %(atom, coords[i][0],  coords[i][1], coords[i][2])
-
-    f = open(filename, "w")
-    f.write(output)
-    f.close()
-
-    
 def mol_from_coords(coordinates, atomtypes):
 
-    temp_xyz = "temp.xyz"
-    write_xyz(coordinatess, atomtypes, temp_xyz)
-    mol = pybel.readfile("xyz", temp_xyz).next()
+    temp_xyz = "%i\n\n" % len(atomtypes)
+    
+    for i, atom in atomtypes:
+        temp_xyz += "%s %f %f %f\n" %(atom, coords[i][0],  coords[i][1], coords[i][2])
+
+    mol = pybel.readstring("xyz", temp_xyz).next()
 
     return mol
     

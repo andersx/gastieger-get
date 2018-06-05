@@ -2,9 +2,14 @@
 
 import sys
 import pybel
+import openbabel
 
+CHARGE_MODEL_NAME = "eem"
+CHARGE_MODEL = openbabel.OBChargeModel.FindType(CHARGE_MODEL_NAME)
 
 def get_charges(mol):
+
+    CHARGE_MODEL.ComputeCharges(mol.OBMol)
 
     return [atom.partialcharge for atom in mol]
 
